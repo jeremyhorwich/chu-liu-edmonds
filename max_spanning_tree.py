@@ -6,15 +6,11 @@ def find_best_edges(graph, weights):
             if (weights[incoming_edge] > weights[best_edge]):
                 best_edge = incoming_edge
         best_edges[vertex] = best_edge
-    return best_edges
 
-
-def update_weights(graph, weights, best_edges):
-    for vertex in graph:
-        best_weight = weights[best_edges[vertex]]
+        best_weight = weights[best_edge]
         for edge in graph[vertex]:
             weights[edge] -= best_weight
-    return weights
+    return best_edges
 
 
 def find_first_cycle(bottom_up_graph):
@@ -59,6 +55,5 @@ def find_max_spanning_tree(graph, weights):
     if first_cycle is None:
         return tree
     
-    update_weights(graph,weights,tree)    #TODO: can put this in find_best_edges
     fix_cycle(graph,first_cycle,weights)
     return find_max_spanning_tree(graph,weights) 
